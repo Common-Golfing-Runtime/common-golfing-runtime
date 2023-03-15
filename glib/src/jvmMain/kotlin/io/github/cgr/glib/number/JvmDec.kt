@@ -28,11 +28,17 @@ actual operator fun Dec.div(other: Dec): Dec = this.divide(other)
 
 actual operator fun Dec.unaryMinus(): Dec = this.negate()
 
+actual operator fun Dec.compareTo(other: Dec): Int = this.compareTo(other)
+
 actual fun Dec.power(exponent: Int): Dec = BDM.pow(this, exponent.toLong())
 
 actual fun Dec.power(exponent: Dec): Dec = BDM.pow(this, exponent)
 
 actual fun Dec.sqrt(): Dec = BDM.sqrt(this)
+
+actual fun Dec.log(): Dec = BDM.log(this)
+
+actual fun Dec.exp(): Dec = BDM.exp(this)
 
 actual fun Dec.sin(): Dec = BDM.sin(this)
 

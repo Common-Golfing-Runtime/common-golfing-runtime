@@ -1,4 +1,4 @@
-package io.github.cgr.api.data
+package io.github.cgr.glib.number
 
 actual class Complex(actual val re: Dec, actual val im: Dec) {
     override fun toString(): String {
@@ -26,3 +26,29 @@ actual operator fun Complex.div(other: Complex): Complex {
     val denominator = other.re * other.re + other.im * other.im
     return Complex((re * other.re + im * other.im) / denominator, (im * other.re - re * other.im) / denominator)
 }
+
+actual fun Complex.abs(): Dec {
+    return (re * re + im * im).sqrt()
+}
+
+actual fun Complex.arg(): Dec {
+    return (im / re).atan()
+}
+
+actual fun Complex.power(exponent: Int): Complex {
+    return Complex(re.power(exponent), im.power(exponent))
+}
+
+actual fun Complex.power(exponent: Dec): Complex {
+    val abs = this.abs()
+    val arg = this.arg()
+    val newAbs = abs.power(exponent)
+    val newArg = arg * exponent
+    return newComplex(newAbs * newArg.cos(), newAbs * newArg.sin())
+}
+
+/*
+TODO: actually do complex power (but I need exp and log, which requires Taylor series and stuff,
+ while we're trying to get an MVP here), instead of extracting the real part
+ */
+actual fun Complex.power(exponent: Complex): Complex = this.power(exponent.re)

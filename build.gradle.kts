@@ -46,6 +46,7 @@ kotlin {
         val jvmTest by getting
         val jsMain by getting {
             dependencies {
+                implementation(npm("decimal.js", "10.4.3", generateExternals = true))
             }
         }
         val jsTest by getting

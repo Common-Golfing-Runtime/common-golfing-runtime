@@ -18,9 +18,12 @@ expect operator fun Dec.minus(other: Dec): Dec
 expect operator fun Dec.times(other: Dec): Dec
 expect operator fun Dec.div(other: Dec): Dec
 expect operator fun Dec.unaryMinus(): Dec
+expect operator fun Dec.compareTo(other: Dec): Int
 expect fun Dec.power(exponent: Int): Dec
 expect fun Dec.power(exponent: Dec): Dec
 expect fun Dec.sqrt(): Dec
+expect fun Dec.log(): Dec
+expect fun Dec.exp(): Dec
 
 expect fun Dec.sin(): Dec
 expect fun Dec.asin(): Dec

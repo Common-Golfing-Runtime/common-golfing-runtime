@@ -24,6 +24,10 @@ actual fun Complex.abs(): Dec = BCM.abs(this, MathContext.DECIMAL128)
 
 actual fun Complex.arg(): Dec = BCM.angle(this, MathContext.DECIMAL128)
 
+actual fun Complex.log(): Complex = BCM.log(this, MathContext.DECIMAL128)
+
+actual fun Complex.exp(): Complex = BCM.exp(this, MathContext.DECIMAL128)
+
 actual fun Complex.power(exponent: Int): Complex = BCM.pow(this, exponent.toLong(), MathContext.DECIMAL128)
 
 actual fun Complex.power(exponent: Dec): Complex = BCM.pow(this, exponent, MathContext.DECIMAL128)

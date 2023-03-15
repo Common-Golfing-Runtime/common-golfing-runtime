@@ -35,6 +35,17 @@ actual fun Complex.arg(): Dec {
     return (im / re).atan()
 }
 
+actual fun Complex.log(): Complex {
+    val absLog = this.abs().log()
+    val arg = this.arg()
+    return newComplex(absLog, arg)
+}
+
+actual fun Complex.exp(): Complex {
+    val realExp = this.re.exp()
+    return newComplex(realExp * this.im.sin(), realExp * this.im.cos())
+}
+
 actual fun Complex.power(exponent: Int): Complex {
     return Complex(re.power(exponent), im.power(exponent))
 }
@@ -47,8 +58,4 @@ actual fun Complex.power(exponent: Dec): Complex {
     return newComplex(newAbs * newArg.cos(), newAbs * newArg.sin())
 }
 
-/*
-TODO: actually do complex power (but I need exp and log, which requires Taylor series and stuff,
- while we're trying to get an MVP here), instead of extracting the real part
- */
-actual fun Complex.power(exponent: Complex): Complex = this.power(exponent.re)
+actual fun Complex.power(exponent: Complex): Complex = (exponent * this.log()).exp()

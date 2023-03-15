@@ -23,6 +23,7 @@ actual operator fun Complex.div(other: Complex): Complex = this.divide(other, Ma
 actual fun Complex.abs(): Dec = BCM.abs(this, MathContext.DECIMAL128)
 
 actual fun Complex.arg(): Dec = BCM.angle(this, MathContext.DECIMAL128)
+
 actual fun Complex.power(exponent: Int): Complex = BCM.pow(this, exponent.toLong(), MathContext.DECIMAL128)
 
 actual fun Complex.power(exponent: Dec): Complex = BCM.pow(this, exponent, MathContext.DECIMAL128)

@@ -1,3 +1,5 @@
+@file:Suppress("EXTENSION_SHADOWED_BY_MEMBER")
+
 package io.github.cgr.glib.number
 
 expect class Dec {
@@ -19,12 +21,12 @@ expect operator fun Dec.unaryMinus(): Dec
 expect fun Dec.power(exponent: Int): Dec
 expect fun Dec.power(exponent: Dec): Dec
 expect fun Dec.sqrt(): Dec
+
 expect fun Dec.sin(): Dec
-
 expect fun Dec.asin(): Dec
+
 expect fun Dec.cos(): Dec
-
 expect fun Dec.acos(): Dec
-expect fun Dec.tan(): Dec
 
+expect fun Dec.tan(): Dec
 expect fun Dec.atan(): Dec

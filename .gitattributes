@@ -3,4 +3,5 @@
 #
 # These are explicitly windows files and should use crlf
 *.bat           text eol=crlf
+kotlin-js-store/yarn.lock text linguist-generated=true
 

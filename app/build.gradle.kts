@@ -41,13 +41,13 @@ kotlin {
         }
         val jvmMain by getting {
             dependencies {
-                implementation("ch.obermuhlner:big-math:2.3.2")
+                implementation("org.msgpack:msgpack-core:0.9.3")
             }
         }
         val jvmTest by getting
         val jsMain by getting {
             dependencies {
-                implementation(npm("decimal.js", "10.4.3", generateExternals = true))
+                implementation(npm("@msgpack/msgpack", "3.0.0-beta1"))
             }
         }
         val jsTest by getting

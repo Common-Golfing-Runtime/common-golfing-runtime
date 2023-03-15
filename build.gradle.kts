@@ -41,11 +41,13 @@ kotlin {
         }
         val jvmMain by getting {
             dependencies {
+                implementation("org.msgpack:msgpack-core:0.9.3")
             }
         }
         val jvmTest by getting
         val jsMain by getting {
             dependencies {
+                implementation(npm("@msgpack/msgpack", "3.0.0-beta1"))
             }
         }
         val jsTest by getting

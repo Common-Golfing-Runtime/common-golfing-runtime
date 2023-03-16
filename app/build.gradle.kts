@@ -33,7 +33,11 @@ kotlin {
         }
     }
     sourceSets {
-        val commonMain by getting
+        val commonMain by getting {
+            dependencies {
+                api(project(":glib"))
+            }
+        }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test"))
@@ -55,10 +59,5 @@ kotlin {
 }
 
 application {
-    mainClass.set("io.github.cgr.application.MainKt")
-}
-
-tasks.named<Copy>("jvmProcessResources") {
-    val jsBrowserDistribution = tasks.named("jsBrowserDistribution")
-    from(jsBrowserDistribution)
+    mainClass.set("io.github.cgr.app.MainKt")
 }

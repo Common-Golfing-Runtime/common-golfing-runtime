@@ -47,14 +47,14 @@ actual fun Complex.exp(): Complex {
 }
 
 actual fun Complex.power(exponent: Int): Complex {
-    return Complex(re.power(exponent), im.power(exponent))
+    val newAbs = this.abs().power(exponent)
+    val newArg = this.arg() * exponent.toDec()
+    return newComplex(newAbs * newArg.cos(), newAbs * newArg.sin())
 }
 
 actual fun Complex.power(exponent: Dec): Complex {
-    val abs = this.abs()
-    val arg = this.arg()
-    val newAbs = abs.power(exponent)
-    val newArg = arg * exponent
+    val newAbs = abs().power(exponent)
+    val newArg = arg() * exponent
     return newComplex(newAbs * newArg.cos(), newAbs * newArg.sin())
 }
 

@@ -9,7 +9,7 @@ interface Opcode {
     val name: String
     val argLength: Int
 
-    fun execute(args: IntArray, stack: ArrayDeque<Any?>)
+    fun execute(args: IntArray, vm: VirtualMachine)
 
     fun register() {
         opcodes[name] = this

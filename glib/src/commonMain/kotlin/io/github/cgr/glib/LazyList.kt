@@ -25,11 +25,8 @@ class LazyList(private val generator: Iterator<Any?>) : List<Any?> {
     private val backing = mutableListOf<Any?>()
 
     override fun get(index: Int): Any? {
-        while (backing.size <= index) {
-            if (!generator.hasNext()) {
-                throw IndexOutOfBoundsException("Index: $index, size: ${backing.size}")
-            }
-            backing.add(generator.next())
+        if (!hasIndex(index)) {
+            throw IndexOutOfBoundsException("Index: $index, size: ${backing.size}")
         }
         return backing[index]
     }

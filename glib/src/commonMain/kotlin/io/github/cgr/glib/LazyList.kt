@@ -2,17 +2,18 @@ package io.github.cgr.glib
 
 class LazyList(private val generator: Iterator<Any?>) : List<Any?> {
 
-    constructor(generator: () -> Any?) : this(object : Iterator<Any?> {
-        override fun hasNext(): Boolean = true
-
-        override fun next(): Any? = generator()
-    })
-
     constructor(vararg elements: Any?) : this(elements.iterator())
 
     constructor(generator: Sequence<Any?>) : this(generator.iterator())
 
     constructor(generator: Iterable<Any?>) : this(generator.iterator())
+
+    companion object {
+        fun repeat(generator: () -> Any?): LazyList = LazyList(object : Iterator<Any?> {
+            override fun hasNext(): Boolean = true
+            override fun next(): Any? = generator()
+        })
+    }
 
     override val size: Int
         get() {
@@ -85,7 +86,7 @@ class LazyList(private val generator: Iterator<Any?>) : List<Any?> {
             if (!hasPrevious()) {
                 throw NoSuchElementException()
             }
-            // Any?he backing list is guaranteed to have the element at the current index because we are going backwards.
+            // The backing list is guaranteed to have the element at the current index because we are going backwards.
             return backing[--currentIndex]
         }
 

@@ -1,4 +1,4 @@
-package io.github.cgr.internal
+package io.github.cgr.app.io
 
 expect class Packer {
     fun pack(value: Int)

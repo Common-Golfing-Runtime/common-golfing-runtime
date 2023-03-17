@@ -1,4 +1,6 @@
-package io.github.cgr.api
+package io.github.cgr.app
+
+import io.github.cgr.app.objects.Opcode
 
 data class Program(val opcodes: Array<Pair<Opcode, IntArray>>, val constantPool: Array<Any?>) {
     override fun equals(other: Any?): Boolean {

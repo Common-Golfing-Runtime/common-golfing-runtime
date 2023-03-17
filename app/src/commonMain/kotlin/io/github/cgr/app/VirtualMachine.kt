@@ -1,4 +1,4 @@
-package io.github.cgr.api
+package io.github.cgr.app
 
 class VirtualMachine(private val program: Program) {
 

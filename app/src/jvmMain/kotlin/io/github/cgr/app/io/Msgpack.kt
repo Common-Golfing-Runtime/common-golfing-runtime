@@ -1,4 +1,4 @@
-package io.github.cgr.internal
+package io.github.cgr.app.io
 
 import org.msgpack.core.MessagePack
 

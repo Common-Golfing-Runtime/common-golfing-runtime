@@ -15,7 +15,7 @@ repositories {
 kotlin {
     jvm {
         compilations.all {
-            kotlinOptions.jvmTarget = "1.8"
+            kotlinOptions.jvmTarget = "17"
         }
         withJava()
         testRuns["test"].executionTask.configure {
@@ -45,13 +45,13 @@ kotlin {
         }
         val jvmMain by getting {
             dependencies {
-                implementation("org.msgpack:msgpack-core:0.9.3")
+                api("org.msgpack:msgpack-core:0.9.3")
             }
         }
         val jvmTest by getting
         val jsMain by getting {
             dependencies {
-                implementation(npm("@msgpack/msgpack", "3.0.0-beta1"))
+                api(npm("@msgpack/msgpack", "3.0.0-beta1"))
             }
         }
         val jsTest by getting

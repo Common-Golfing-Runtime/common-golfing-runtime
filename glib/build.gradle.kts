@@ -14,7 +14,7 @@ repositories {
 kotlin {
     jvm {
         compilations.all {
-            kotlinOptions.jvmTarget = "1.8"
+            kotlinOptions.jvmTarget = "17"
         }
         withJava()
         testRuns["test"].executionTask.configure {
@@ -40,13 +40,13 @@ kotlin {
         }
         val jvmMain by getting {
             dependencies {
-                implementation("ch.obermuhlner:big-math:2.3.2")
+                api("ch.obermuhlner:big-math:2.3.2")
             }
         }
         val jvmTest by getting
         val jsMain by getting {
             dependencies {
-                implementation(npm("decimal.js", "10.4.3", generateExternals = true))
+                api(npm("decimal.js", "10.4.3", generateExternals = true))
             }
         }
         val jsTest by getting

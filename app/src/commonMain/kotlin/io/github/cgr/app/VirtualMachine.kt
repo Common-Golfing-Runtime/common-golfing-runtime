@@ -2,26 +2,25 @@ package io.github.cgr.app
 
 class VirtualMachine(private val program: Program) {
 
-    var stack = ArrayDeque<Any?>()
+    val stack = ArrayDeque<Any?>()
 
-    private var pc = 0
+    var programCounter = 0
+        private set
 
     fun run() {
-        while (pc < program.opcodes.size) {
-            val (opcode, args) = program.opcodes[pc++]
+        while (programCounter < program.opcodes.size) {
+            val (opcode, args) = program.opcodes[programCounter++]
             opcode.execute(args, this)
         }
     }
 
     fun jump(address: Int) {
-        pc = address - 1 // -1 because pc will be incremented at the end of the loop
+        programCounter = address - 1 // -1 because pc will be incremented at the end of the loop
     }
 
     fun jumpRelative(offset: Int) {
-        pc += offset - 1 // -1 because pc will be incremented at the end of the loop
+        programCounter += offset - 1 // -1 because pc will be incremented at the end of the loop
     }
-
-    fun programCounter() = pc
 }
 
 fun <T> ArrayDeque<T>.pop(): T = removeLast()

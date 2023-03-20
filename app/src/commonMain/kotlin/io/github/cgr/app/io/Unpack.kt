@@ -5,7 +5,10 @@ import io.github.cgr.app.objects.ConstantLabel
 import io.github.cgr.app.objects.Opcode
 
 fun readProgram(buffer: ByteArray): Program {
-    require(buffer[0].toInt() == 0xDEAD && buffer[1].toInt() == 0xC0DE) { "Invalid magic number" }
+    // aaaaaaaaaaa why does kotlin make me use such convoluted code
+    require(buffer.sliceArray(0..3).contentEquals(
+        byteArrayOf(0xDE.toByte(), 0xAD.toByte(), 0xC0.toByte(), 0xDE.toByte())
+    )) { "Invalid magic number" }
     val unpacker = Unpacker(buffer.sliceArray(2 until buffer.size))
     val symbolTable = readSymbolTable(unpacker)
     val constantPool = readConstantPool(unpacker, symbolTable)

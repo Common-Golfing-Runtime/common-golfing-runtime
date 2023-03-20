@@ -1,5 +1,5 @@
 package io.github.cgr.app
 
-fun main() {
+fun main(args: Array<String>) {
 
 }

@@ -5,7 +5,8 @@ import io.github.cgr.app.objects.ConstantLabel
 import io.github.cgr.app.objects.Opcode
 
 fun readProgram(buffer: ByteArray): Program {
-    val unpacker = Unpacker(buffer)
+    require(buffer[0].toInt() == 0xDEAD && buffer[1].toInt() == 0xC0DE) { "Invalid magic number" }
+    val unpacker = Unpacker(buffer.sliceArray(2 until buffer.size))
     val symbolTable = readSymbolTable(unpacker)
     val constantPool = readConstantPool(unpacker, symbolTable)
     val opcodes = readOpcodes(unpacker, symbolTable)

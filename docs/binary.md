@@ -3,6 +3,9 @@
 For simplicity, all mentions of `int` and `string` in this file are specified to be [MessagePack](https://msgpack.org) types. The binary specification for each MessagePack type can be found [here](https://github.com/msgpack/msgpack/blob/master/spec.md). An array of a type is specified by a `[]` suffix. An optional value is specified by a `?` suffix.
 
 ## The File Specification
+
+The file always starts with the magic number `0xDEADC0DE`.
+
 ```
 symbol_table_length: int
 symbol_table: string[]

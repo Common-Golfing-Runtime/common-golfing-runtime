@@ -9,7 +9,7 @@ fun readProgram(buffer: ByteArray): Program {
     require(buffer.sliceArray(0..3).contentEquals(
         byteArrayOf(0xDE.toByte(), 0xAD.toByte(), 0xC0.toByte(), 0xDE.toByte())
     )) { "Invalid magic number" }
-    val unpacker = Unpacker(buffer.sliceArray(2 until buffer.size))
+    val unpacker = Unpacker(buffer.sliceArray(4 until buffer.size))
     val symbolTable = readSymbolTable(unpacker)
     val constantPool = readConstantPool(unpacker, symbolTable)
     val opcodes = readOpcodes(unpacker, symbolTable)

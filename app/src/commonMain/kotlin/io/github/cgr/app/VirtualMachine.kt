@@ -1,6 +1,6 @@
 package io.github.cgr.app
 
-class VirtualMachine(private val program: Program) {
+class VirtualMachine(val program: Program) {
 
     val stack = ArrayDeque<Any?>()
 
@@ -8,9 +8,11 @@ class VirtualMachine(private val program: Program) {
         private set
 
     fun run() {
-        while (programCounter < program.opcodes.size) {
-            val (opcode, args) = program.opcodes[programCounter++]
+        val opcodes = program.opcodes
+        while (programCounter < opcodes.size) {
+            val (opcode, args) = opcodes[programCounter]
             opcode.execute(args, this)
+            programCounter++
         }
     }
 
@@ -20,6 +22,10 @@ class VirtualMachine(private val program: Program) {
 
     fun jumpRelative(offset: Int) {
         programCounter += offset - 1 // -1 because pc will be incremented at the end of the loop
+    }
+
+    fun halt() {
+        programCounter = program.opcodes.size
     }
 }
 

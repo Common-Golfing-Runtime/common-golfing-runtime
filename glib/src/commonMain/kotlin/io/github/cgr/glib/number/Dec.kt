@@ -13,6 +13,8 @@ fun Long.toDec(): Dec = newDec(this.toString())
 fun Double.toDec(): Dec = newDec(this.toString())
 fun String.toDec(): Dec = newDec(this)
 
+expect fun Dec.stringified(): String
+
 expect operator fun Dec.plus(other: Dec): Dec
 expect operator fun Dec.minus(other: Dec): Dec
 expect operator fun Dec.times(other: Dec): Dec

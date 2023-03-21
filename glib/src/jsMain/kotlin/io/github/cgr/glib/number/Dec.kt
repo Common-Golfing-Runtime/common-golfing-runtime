@@ -16,6 +16,8 @@ actual fun newDec(value: String): Dec {
     return Decimal(value)
 }
 
+actual fun Dec.stringified(): String = this.toFixed()
+
 actual operator fun Dec.plus(other: Dec): Dec = this.add(other)
 
 actual operator fun Dec.minus(other: Dec): Dec = this.sub(other)

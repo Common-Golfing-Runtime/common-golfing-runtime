@@ -5,7 +5,7 @@ import io.github.cgr.glib.number.Dec
 import io.github.cgr.glib.number.newComplex
 import io.github.cgr.glib.number.newDec
 
-enum class BaseLabels(private val unpacking: (Unpacker, List<Any?>) -> Any?) : ConstantLabel {
+enum class BaseLabel(private val unpacking: (Unpacker, List<Any?>) -> Any?) : ConstantLabel {
     INT(Unpacker::unpackInt),
     STRING(Unpacker::unpackString),
     BOOLEAN(Unpacker::unpackBoolean),
@@ -15,10 +15,6 @@ enum class BaseLabels(private val unpacking: (Unpacker, List<Any?>) -> Any?) : C
     ;
 
     constructor(unpacking: (Unpacker) -> Any?) : this({ unpacker, _ -> unpacking(unpacker) })
-
-    init {
-        register()
-    }
 
     override fun getConstant(unpacker: Unpacker, loaded: List<Any?>): Any? = unpacking(unpacker, loaded)
 }

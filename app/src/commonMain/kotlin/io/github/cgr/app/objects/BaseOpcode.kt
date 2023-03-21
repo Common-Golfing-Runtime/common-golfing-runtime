@@ -9,28 +9,33 @@ import io.github.cgr.glib.impls.gPrint
 import io.github.cgr.glib.impls.gPrintln
 
 enum class BaseOpcode(
-    override val arity: Int,
-    private val executor: (IntArray, VirtualMachine) -> Unit
+    private val executor: (IntArray, VirtualMachine) -> Unit,
+    override val arity: Int = 0
 ) : Opcode {
-    NOP(0, { _, _ -> }),
-    HALT(0, { _, vm -> vm.halt() }),
-    POP({ it.pop() }),
-    DUP({ it.push(it.peek()) }),
-    SWAP({
+    NOP({ _, _ -> }),
+    HALT({ _, vm -> vm.halt() }),
+    POP(stackOp { it.pop() }),
+    DUP(stackOp { it.push(it.peek()) }),
+    SWAP(stackOp {
         val a = it.pop()
         val b = it.pop()
         it.push(a)
         it.push(b)
     }),
-    LOADC(1, { args, vm -> vm.stack.push(vm.program.constantPool[args[0]]) }),
+    LOADC({ args, vm -> vm.stack.push(vm.program.constantPool[args[0]]) }, 1),
     TO_STRING(monad(::asString)),
-    PRINT({ gPrintln(it.pop()) }),
-    RPRINT({ gPrint(it.pop()) }),
+    PRINT(stackOp { gPrintln(it.pop()) }),
+    RPRINT(stackOp { gPrint(it.pop()) }),
     ;
-
-    constructor(op: (ArrayDeque<Any?>) -> Unit) : this(0, { _, vm -> op(vm.stack) })
 
     override fun execute(args: IntArray, vm: VirtualMachine) = executor(args, vm)
 }
 
-private inline fun monad(crossinline executor: (Any?) -> Any?): (ArrayDeque<Any?>) -> Unit = { it.push(executor(it.pop())) }
+private inline fun stackOp(crossinline op: (ArrayDeque<Any?>) -> Unit): (IntArray, VirtualMachine) -> Unit =
+    { _, vm -> op(vm.stack) }
+
+private inline fun <reified T> monad(crossinline op: (T) -> Any?): (IntArray, VirtualMachine) -> Unit =
+    stackOp { it.push(op(it.pop() as T)) }
+
+private inline fun <reified A, reified B> dyad(crossinline op: (A, B) -> Any?): (IntArray, VirtualMachine) -> Unit =
+    stackOp { it.push(op(it.pop() as A, it.pop() as B)) }

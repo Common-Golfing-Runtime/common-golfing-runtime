@@ -29,3 +29,6 @@ fun Complex.stringified(): String {
         else -> "$re + ${im}i"
     }
 }
+
+fun Int.toComplex(): Complex = newComplex(this.toDec(), 0.toDec())
+fun Dec.toComplex(): Complex = newComplex(this, 0.toDec())

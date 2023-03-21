@@ -1,11 +1,22 @@
 package io.github.cgr.app
 
+import io.github.cgr.app.objects.BaseOpcode
+
 class VirtualMachine(val program: Program) {
 
     val stack = ArrayDeque<Any?>()
 
     var programCounter = 0
         private set
+
+    private val labels = program.opcodes
+        .filter { (op, _) -> op == BaseOpcode.LABEL }
+        .mapIndexed { i, (_, args) -> args[0] to i }
+        .let {
+            val arr = IntArray(it.maxOfOrNull(Pair<Int, Int>::first) ?: 0) { -1 }
+            it.forEach { (label, index) -> arr[label] = index }
+            arr
+        }
 
     fun run() {
         val opcodes = program.opcodes
@@ -16,12 +27,10 @@ class VirtualMachine(val program: Program) {
         }
     }
 
-    fun jump(address: Int) {
-        programCounter = address - 1 // -1 because pc will be incremented at the end of the loop
-    }
-
-    fun jumpRelative(offset: Int) {
-        programCounter += offset - 1 // -1 because pc will be incremented at the end of the loop
+    fun jump(label: Int) {
+        val index = labels[label]
+        if (index == -1) throw IllegalArgumentException("Label $label not found")
+        programCounter = index
     }
 
     fun halt() {

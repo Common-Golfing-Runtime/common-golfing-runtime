@@ -5,7 +5,7 @@ expect class Complex {
     val im: Dec
 }
 
-expect fun newComplex(real: Dec, imaginary: Dec): Complex
+expect fun newComplex(real: Dec, imaginary: Dec = DEC_ZERO): Complex
 
 expect operator fun Complex.plus(other: Complex): Complex
 expect operator fun Complex.minus(other: Complex): Complex
@@ -30,5 +30,5 @@ fun Complex.stringified(): String {
     }
 }
 
-fun Int.toComplex(): Complex = newComplex(this.toDec(), 0.toDec())
-fun Dec.toComplex(): Complex = newComplex(this, 0.toDec())
+fun Int.toComplex(): Complex = newComplex(this.toDec())
+fun Dec.toComplex(): Complex = newComplex(this)

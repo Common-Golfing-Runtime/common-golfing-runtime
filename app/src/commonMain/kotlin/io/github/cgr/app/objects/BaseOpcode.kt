@@ -36,7 +36,7 @@ enum class BaseOpcode(
     PRINT(stackOp { gPrintln(it.pop()) }),
     RPRINT(stackOp { gPrint(it.pop()) }),
 
-    // Golfing stuff
+    // Data operations
     TO_STRING(monad(::asString)),
     ;
 

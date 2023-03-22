@@ -1,5 +1,7 @@
 package io.github.cgr.glib
 
+import io.github.cgr.glib.impls.asString
+
 class LazyList(private val generator: Iterator<Any?>) : List<Any?> {
 
     constructor(vararg elements: Any?) : this(elements.iterator())
@@ -154,6 +156,27 @@ class LazyList(private val generator: Iterator<Any?>) : List<Any?> {
             return result
         }
     })
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is List<*>) return false
+        for (i in this.indices) {
+            if (this[i] != other[i]) return false
+        }
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = 1
+        for (element in this) {
+            result = 31 * result + (element?.hashCode() ?: 0)
+        }
+        return result
+    }
+
+    override fun toString(): String {
+        return joinToString(prefix = "[", postfix = "]", transform = ::asString)
+    }
 }
 
 fun Iterable<Any?>.lazy(): LazyList = LazyList(this)

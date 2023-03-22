@@ -16,6 +16,8 @@ actual fun newDec(value: String): Dec {
     return Dec(value)
 }
 
+actual fun Dec.stringified(): String = this.stripTrailingZeros().toPlainString()
+
 private typealias BDM = DefaultBigDecimalMath
 
 actual operator fun Dec.plus(other: Dec): Dec = this.add(other)

@@ -6,15 +6,15 @@ import io.github.cgr.app.objects.Opcode
 
 fun readProgram(buffer: ByteArray): Program {
     // aaaaaaaaaaa why does kotlin make me use such convoluted code
-    require(buffer.sliceArray(0..3).contentEquals(
-        byteArrayOf(0xDE.toByte(), 0xAD.toByte(), 0xC0.toByte(), 0xDE.toByte())
-    )) { "Invalid magic number" }
+    require(buffer.sliceArray(0..3).contentEquals(MAGIC_NUMBER)) { "Invalid magic number" }
     val unpacker = Unpacker(buffer.sliceArray(4 until buffer.size))
     val symbolTable = readSymbolTable(unpacker)
     val constantPool = readConstantPool(unpacker, symbolTable)
     val opcodes = readOpcodes(unpacker, symbolTable)
     return Program(opcodes, constantPool.toTypedArray())
 }
+
+internal val MAGIC_NUMBER = byteArrayOf(0xDE.toByte(), 0xAD.toByte(), 0xC0.toByte(), 0xDE.toByte())
 
 private fun readSymbolTable(unpacker: Unpacker): List<String> {
     val size = unpacker.unpackInt()

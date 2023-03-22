@@ -13,7 +13,7 @@ class VirtualMachine(val program: Program) {
         .filter { (op, _) -> op == BaseOpcode.LABEL }
         .mapIndexed { i, (_, args) -> args[0] to i }
         .let {
-            val arr = IntArray(it.maxOfOrNull(Pair<Int, Int>::first) ?: 0) { -1 }
+            val arr = IntArray((it.maxOfOrNull(Pair<Int, Int>::first) ?: -1) + 1) { -1 }
             it.forEach { (label, index) -> arr[label] = index }
             arr
         }

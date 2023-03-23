@@ -14,7 +14,10 @@ class VirtualMachine(val program: Program) {
         .mapIndexed { i, (_, args) -> args[0] to i }
         .let {
             val arr = IntArray((it.maxOfOrNull(Pair<Int, Int>::first) ?: -1) + 1) { -1 }
-            it.forEach { (label, index) -> arr[label] = index }
+            it.forEach { (label, index) ->
+                require(label >= 0) { "Label index must not be negative" }
+                arr[label] = index
+            }
             arr
         }
 

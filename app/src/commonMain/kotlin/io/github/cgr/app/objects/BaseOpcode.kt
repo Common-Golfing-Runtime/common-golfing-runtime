@@ -31,6 +31,21 @@ enum class BaseOpcode(
     // Control flow
     LABEL({ _, _ -> }, 1),
     JUMP({ args, vm -> vm.jump(args[0]) }, 1),
+    JMPTYPE(lambda@{ args, vm ->
+        val type = vm.stack.peek()?.let { it::class.qualifiedName ?: "" } ?: "null"
+        val cp = vm.program.constantPool
+        for (i in args.indices step 2) {
+            if (i == args.lastIndex) {
+                // acts as a default
+                vm.jump(args[i])
+                return@lambda
+            }
+            if (type == cp[args[i]]) {
+                vm.jump(args[i + 1])
+                return@lambda
+            }
+        }
+    }, -1),
 
     // I/O
     PRINT(stackOp { gPrintln(it.pop()) }),

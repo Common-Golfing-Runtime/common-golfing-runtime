@@ -63,3 +63,7 @@ kotlin {
 application {
     mainClass.set("io.github.cgr.app.MainKt")
 }
+
+tasks.shadowJar {
+    archiveFileName.set("cgr.jar")
+}

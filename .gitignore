@@ -1,6 +1,7 @@
 .gradle/
 .idea/
+.vscode/
 *.iml
 build/
-.vscode/
+kotlin-js-store/
 testing/

@@ -1,5 +1,5 @@
 plugins {
-    kotlin("multiplatform") version "1.8.10"
+    kotlin("multiplatform")
 }
 
 group = "io.github.cgr"
@@ -22,14 +22,9 @@ kotlin {
         }
     }
     js(IR) {
-        binaries.executable()
-        browser {
-            commonWebpackConfig {
-                cssSupport {
-                    enabled.set(true)
-                }
-            }
-        }
+        binaries.library()
+        browser()
+        nodejs()
     }
     sourceSets {
         val commonMain by getting

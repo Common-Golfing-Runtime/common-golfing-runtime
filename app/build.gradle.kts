@@ -1,6 +1,7 @@
 plugins {
-    kotlin("multiplatform") version "1.8.10"
+    kotlin("multiplatform")
     application
+    id("com.github.johnrengelman.shadow") version "7.1.0"
 }
 
 group = "io.github.cgr"
@@ -46,6 +47,7 @@ kotlin {
         val jvmMain by getting {
             dependencies {
                 api("org.msgpack:msgpack-core:0.9.3")
+                implementation("com.github.ajalt.clikt:clikt:3.5.0")
             }
         }
         val jvmTest by getting
@@ -60,4 +62,8 @@ kotlin {
 
 application {
     mainClass.set("io.github.cgr.app.MainKt")
+}
+
+tasks.shadowJar {
+    archiveFileName.set("cgr.jar")
 }

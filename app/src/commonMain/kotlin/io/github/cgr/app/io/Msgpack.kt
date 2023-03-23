@@ -1,6 +1,6 @@
 package io.github.cgr.app.io
 
-expect class Packer {
+expect class Packer() {
     fun pack(value: Int)
     fun pack(value: String)
     fun pack(value: Boolean)

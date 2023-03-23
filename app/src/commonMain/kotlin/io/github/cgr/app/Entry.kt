@@ -14,9 +14,18 @@ import kotlin.jvm.JvmName
 @JsExport
 @OptIn(ExperimentalJsExport::class)
 fun executeFile(file: ByteArray) {
-    BaseOpcode.values().forEach(Opcode::register)
-    BaseLabel.values().forEach(ConstantLabel::register)
+    registerBase()
     val program = readProgram(file)
     val vm = VirtualMachine(program)
     vm.run()
+}
+
+private var registered = false
+
+fun registerBase() {
+    if (!registered) {
+        BaseOpcode.values().forEach(Opcode::register)
+        BaseLabel.values().forEach(ConstantLabel::register)
+        registered = true
+    }
 }
